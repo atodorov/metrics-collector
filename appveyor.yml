@@ -52,14 +52,14 @@ install:
   # compiled extensions and are not provided as pre-built wheel packages,
   # pip will build them from source using the MSVC compiler matching the
   # target Python version and architecture
-  - "%CMD_IN_ENV% pip install -r requirements\devel.txt"
-  - "%CMD_IN_ENV% pip install -r requirements\windows.txt"
+  - "%CMD_IN_ENV% pip install -r requirements\\devel.txt"
+  - "%CMD_IN_ENV% pip install -r requirements\\windows.txt"
 
 
 test_script:
   # Run the project tests
-  - "%CMD_IN_ENV% pylint -d invalid-name -d redefined-outer-name -d missing-docstring -d too-few-public-methods src/*.py tests/*.py"
-  - "%CMD_IN_ENV% PYTHONPATH=src/ coverage run --source=src/ --branch -m unittest -v tests/*.py"
+  - "%CMD_IN_ENV% pylint -d invalid-name -d redefined-outer-name -d missing-docstring -d too-few-public-methods src\\*.py tests\\*.py"
+  - "%CMD_IN_ENV% PYTHONPATH=src\\ coverage run --source=src\\ --branch -m unittest -v tests\\*.py"
 
 after_test:
   - "%CMD_IN_ENV% pip install coveralls"
