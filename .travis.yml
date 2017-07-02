@@ -1,22 +1,13 @@
 dist: trusty
-sudo: required
 language: python
 python:
   - "3.5"
   - "3.6"
-services:
-  - ssh
-before_install:
-  # change password so the integration test will work
-  - sudo echo 'travis:t3sting' | /usr/sbin/chpasswd
 install:
   - pip install -r requirements/devel.txt
   - pip install coveralls
 script:
-  - ./run_tests.sh && mv .coverage .coverage.unit_test
-  # run integration tests
-  - cd src/ && python ./server.py ../.config.travis && cp .coverage ../.coverage.integration_test && cd ../
-  - coverage combine .coverage.*
+  - ./run_tests.sh
 after_success:
   - coveralls
 notifications:
