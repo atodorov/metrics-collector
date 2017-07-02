@@ -11,7 +11,11 @@ def _send_email(cfg, to, subject, body):
     msg['Subject'] = subject
     msg.set_content(body)
 
-# smtp can raise here
+    # this can raise a variety of exceptions
+    # for the moment we leave it escape to the caller
+    # b/c we can't test it via unit tests without
+    # heavy mocking. If there is a problem it will be seen
+    # during execution
     with smtplib.SMTP(cfg['host'], cfg['port']) as smtp:
         if cfg['starttls']:
             smtp.starttls()
@@ -38,7 +42,7 @@ def _send_alert(smtp_cfg, client, metrics, _type):
 Check-out what's going on with the system or increase the
 limits!""" % (_type, metrics[_type], client['alerts'][_type])
 
-    _send_email(smtp_cfg, to, subject.strip(), body)
+    _send_email(smtp_cfg, to, subject, body.strip())
 
 
 def check_for_alerts(smtp_cfg, client, metrics):
