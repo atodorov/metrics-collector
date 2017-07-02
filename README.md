@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.org/atodorov/metrics-collector.svg?branch=master)](https://travis-ci.org/atodorov/metrics-collector)
+[![Build status](https://ci.appveyor.com/api/projects/status/f000203atg7fyjdx/branch/master?svg=true)](https://ci.appveyor.com/project/atodorov/metrics-collector/branch/master)
+[![Coverage Status](https://coveralls.io/repos/github/atodorov/metrics-collector/badge.svg?branch=master)](https://coveralls.io/github/atodorov/metrics-collector?branch=master)
+
+
 This is a simple client/server application which connects to remote systems
 and collects some metrics! Currently CPU usage, memory usage and uptime are
 collected. For Windows systems we collect security event logs as well.
@@ -87,3 +92,12 @@ and execute `python get-pip.py`. After pip has been installed execute:
 
     pip install psutil winevt
 
+
+# Testing
+
+To execute the tests first `pip install -r requirements/devel.txt` and then
+`./run_tests.sh`. This application is tested using `pylint` and via unit tests.
+The unit tests run on both Travis CI (Ubuntu) and AppVeyor (Windows).
+
+Currently we don't execute integration tests becuase public CIs don't offer
+the ability to execute SSH on them, less so for Windows!
