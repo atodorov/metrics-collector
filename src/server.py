@@ -119,9 +119,7 @@ if __name__ == "__main__":
         db.commit()
 
         # check for alerts
-        for _type, _limit in client['alerts'].items():
-            if metrics[_type] > _limit:
-                alerts.send_alert(smtp_cfg, client, metrics, _type)
+        alerts.check_for_alerts(smtp_cfg, client, metrics)
 
         # chech for event logs
         if 'security_event_logs' in metrics:

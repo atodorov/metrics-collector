@@ -1,7 +1,7 @@
 import smtplib
 from email.message import EmailMessage
 
-def send_email(cfg, to, subject, body):
+def _send_email(cfg, to, subject, body):
     """
         Sends an email using specified SMTP configuration
     """
@@ -21,7 +21,7 @@ def send_email(cfg, to, subject, body):
 
 
 
-def send_alert(smtp_cfg, client, metrics, _type):
+def _send_alert(smtp_cfg, client, metrics, _type):
     """
         Send email to the client when the metric of type
         @_type is greater than the configured limit!
@@ -38,5 +38,13 @@ def send_alert(smtp_cfg, client, metrics, _type):
 Check-out what's going on with the system or increase the
 limits!""" % (_type, metrics[_type], client['alerts'][_type])
 
-    send_email(smtp_cfg, to, subject.strip(), body)
+    _send_email(smtp_cfg, to, subject.strip(), body)
 
+
+def check_for_alerts(smtp_cfg, client, metrics):
+    """
+        Check for alerts and send emails if necessary!
+    """
+    for _type, _limit in client['alerts'].items():
+        if metrics[_type] > _limit:
+            _send_alert(smtp_cfg, client, metrics, _type)
