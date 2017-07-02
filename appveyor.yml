@@ -64,4 +64,4 @@ test_script:
 
 after_test:
   - "%CMD_IN_ENV% pip install coveralls"
-  - "%CMD_IN_ENV% coveralls -v"
+  - "coveralls -v"
