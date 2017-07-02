@@ -1,4 +1,5 @@
 dist: trusty
+sudo: required
 language: python
 python:
   - "3.5"
@@ -13,7 +14,7 @@ services:
   - ssh
 before_install:
   # change password so the integration test will work
-  - echo 't3sting' | passwd --stdin
+  - sudo echo -n 't3sting' | passwd --stdin travis
 
   - mysql -e 'SELECT VERSION();'
   - mysql -e 'CREATE USER "tester" IDENTIFIED BY "";'
