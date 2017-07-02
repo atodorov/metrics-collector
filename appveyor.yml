@@ -60,7 +60,8 @@ build: off
 test_script:
   # Run the project tests
   - "%CMD_IN_ENV% pylint -d invalid-name -d redefined-outer-name -d missing-docstring -d too-few-public-methods src tests"
-  - "SET PYTHONPATH=src\\; %CMD_IN_ENV% coverage run --source=src\\ --branch -m unittest -v tests\\*.py"
+  - "SET PYTHONPATH=src\\"
+  - "%CMD_IN_ENV% coverage run --source=src\\ --branch -m unittest -v tests\\*.py"
   - ECHO "Files after testing:"
   - ps: "echo %cd%"
   - ps: "ls"
@@ -68,4 +69,4 @@ test_script:
 
 after_test:
   - "%CMD_IN_ENV% pip install coveralls"
-  - "coveralls -v"
+  - "%CMD_IN_ENV% coveralls -v"
