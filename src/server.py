@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 
+import sys
 import json
 from datetime import datetime
 
@@ -76,8 +77,12 @@ def collect_metrics(ssh, client, last_event_record_id):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print('USAGE: server.py path/to/config.xml')
+        sys.exit(1)
+
     # parse the XML configuration
-    config_xml = config.parse_config('../config.xml')
+    config_xml = config.parse_config(sys.argv[1])
     clients = config.parse_clients(config_xml)
     smtp_cfg = config.parse_smtp(config_xml)
 
