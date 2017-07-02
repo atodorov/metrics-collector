@@ -1,0 +1,4 @@
+paramiko
+sqlalchemy
+# psutil # need to install it on the  clients and be globally accessible
+# winevt # need to install on Windows clients and be globally accessible

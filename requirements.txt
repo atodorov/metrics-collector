@@ -1,4 +1,0 @@
-paramiko
-sqlalchemy
-# psutil # need to install it on the client and be globally accessible
-# winevt # need to install on the client
