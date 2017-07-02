@@ -7,11 +7,6 @@ environment:
 
   matrix:
     # Python versions not pre-installed
-
-    - PYTHON: "C:\\Python27.13-x64"
-      PYTHON_VERSION: "2.7.13"
-      PYTHON_ARCH: "64"
-
     - PYTHON: "C:\\Python35-x64"
       PYTHON_VERSION: "3.5.0"
       PYTHON_ARCH: "64"
