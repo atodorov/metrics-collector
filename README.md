@@ -82,7 +82,7 @@ Installing SFTP/SSH Server from https://winscp.net/eng/docs/guide_windows_openss
 
 Then install Python 3.6.1 from https://www.python.org/downloads/windows/.
 
-Then download the `get-pip.py` script from https://www.python.org/downloads/windows/
+Then download the `get-pip.py` script from https://pip.pypa.io/en/stable/installing/
 and execute `python get-pip.py`. After pip has been installed execute:
 
     pip install psutil winevt
