@@ -76,6 +76,6 @@ def connect(db_connection):
         A session object can be used to query, insert and delete
         records from the database!
     """
-    db_engine = sql.create_engine(db_connection, echo=True)
+    db_engine = sql.create_engine(db_connection)
     _Base.metadata.create_all(db_engine)
     return sql.orm.sessionmaker(bind=db_engine)()
