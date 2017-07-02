@@ -4,24 +4,11 @@ language: python
 python:
   - "3.5"
   - "3.6"
-env:
-  - TEST_DB=SQLite
-  - TEST_DB=MySQL
-  - TEST_DB=Postgres
 services:
-  - mysql
-  - postgresql
   - ssh
 before_install:
   # change password so the integration test will work
   - sudo echo -n 't3sting' | passwd --stdin travis
-
-  - mysql -e 'SELECT VERSION();'
-  - mysql -e 'CREATE USER "tester" IDENTIFIED BY "";'
-  - mysql -e 'CREATE DATABASE collection_db CHARACTER SET utf8 COLLATE utf8_unicode_ci;'
-  - mysql -e 'GRANT ALL PRIVILEGES ON collection_db.* TO tester;'
-
-  - psql -c  "CREATE DATABASE collection_db ENCODING 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';" -U postgres
 install:
   - pip install -r requirements/devel.txt
   - pip install coveralls
