@@ -5,7 +5,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-PYTHONPATH=src/ coverage run --source=src/ --branch -m unittest -v tests/*.py
+PYTHONPATH=src/ nosetests --with-coverage --cover-branches --cover-package=src
 if [ $? -ne 0 ]; then
     exit 1
 fi
