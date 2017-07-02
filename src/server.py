@@ -40,7 +40,7 @@ def collect_metrics(ssh, client, last_event_record_id):
     ssh.connect(client['ip'], port=client['port'],
                 username=client['username'], password=client['password'])
 
-    print('***** DEBUG after connect')
+    print('***** CONNECTED TO', client['ip'])
 
     if client['platform'] == 'Linux':
         destination = '/tmp/agent.py'
@@ -52,8 +52,6 @@ def collect_metrics(ssh, client, last_event_record_id):
 
     # copy the agent script to the client system
     _agent_scp(ssh, destination)
-
-    print('***** DEBUG after copy')
 
     # don't encrypt on the client b/c we're running through ssh
     # which is already encryted. The requirement says the client should
@@ -68,8 +66,6 @@ def collect_metrics(ssh, client, last_event_record_id):
     response = _out.read().strip().decode('utf8')
 
     ssh.close()
-
-    print('***** DEBUG before return')
 
     return json.loads(response)
 
