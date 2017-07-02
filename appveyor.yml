@@ -62,8 +62,6 @@ test_script:
   - "%CMD_IN_ENV% pylint -d invalid-name -d redefined-outer-name -d missing-docstring -d too-few-public-methods src tests"
   - "SET PYTHONPATH=src\\"
   - "%CMD_IN_ENV% nosetests --with-coverage --cover-branches --cover-package=src"
-  - ECHO "Files after testing:"
-  - ps: "ls"
 
 
 after_test:
