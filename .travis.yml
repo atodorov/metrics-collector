@@ -10,8 +10,11 @@ env:
 services:
   - mysql
   - postgresql
-  - sshd
+  - ssh
 before_install:
+  # change password so the integration test will work
+  - echo 't3sting' | passwd --stdin
+
   - mysql -e 'SELECT VERSION();'
   - mysql -e 'CREATE USER "tester" IDENTIFIED BY "";'
   - mysql -e 'CREATE DATABASE collection_db CHARACTER SET utf8 COLLATE utf8_unicode_ci;'

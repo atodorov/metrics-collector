@@ -13,7 +13,7 @@
         ip='127.0.0.1'
         port='22'
         username='travis'
-        password=''
+        password='t3sting'
         mail="travis@localhost"
         platform='Linux'>
             <alert type="memory" limit="80%" />
