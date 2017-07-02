@@ -55,6 +55,7 @@ install:
   - "%CMD_IN_ENV% pip install -r requirements\\devel.txt"
   - "%CMD_IN_ENV% pip install -r requirements\\windows.txt"
 
+build: off
 
 test_script:
   # Run the project tests
