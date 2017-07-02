@@ -8,7 +8,7 @@ services:
   - ssh
 before_install:
   # change password so the integration test will work
-  - sudo echo -n 't3sting' | passwd --stdin travis
+  - sudo echo 'travis:t3sting' | /usr/sbin/chpasswd
 install:
   - pip install -r requirements/devel.txt
   - pip install coveralls
