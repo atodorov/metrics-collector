@@ -11,7 +11,7 @@ def _send_email(cfg, to, subject, body):
     msg['Subject'] = subject
     msg.set_content(body)
 
-#TODO: smtp can raise here
+# smtp can raise here
     with smtplib.SMTP(cfg['host'], cfg['port']) as smtp:
         if cfg['starttls']:
             smtp.starttls()
