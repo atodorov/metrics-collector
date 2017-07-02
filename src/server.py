@@ -2,11 +2,10 @@
 
 from __future__ import print_function
 
-import os
-import sys
 import json
-import paramiko
 from datetime import datetime
+
+import paramiko
 
 import orm
 import alerts
@@ -14,12 +13,11 @@ import config
 
 
 
-def agent_scp(ssh, client, destination):
+def _agent_scp(ssh, destination):
     """
         Secure copy the agent.py script to the client.
 
         @ssh - paramiko.SSHClient object
-        @client - dict - configuration of client
         @destination - string - destination file name
         @return - None
     """
@@ -52,7 +50,7 @@ def collect_metrics(ssh, client, last_event_record_id):
 
 
     # copy the agent script to the client system
-    agent_scp(ssh, client, destination)
+    _agent_scp(ssh, destination)
 
     print('***** DEBUG after copy')
 
@@ -124,7 +122,10 @@ if __name__ == "__main__":
         # chech for event logs
         if 'security_event_logs' in metrics:
             for event_log in metrics['security_event_logs']:
-                event_log['TimeCreated'] = datetime.strptime(event_log['TimeCreated'], '%Y-%m-%dT%H:%M:%S.%f')
+                event_log['TimeCreated'] = datetime.strptime(
+                    event_log['TimeCreated'],
+                    '%Y-%m-%dT%H:%M:%S.%f'
+                )
 
                 event = db.query(orm.WinEventLog).filter_by(
                     system_id=system.id,

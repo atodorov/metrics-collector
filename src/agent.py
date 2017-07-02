@@ -4,10 +4,12 @@ from __future__ import print_function
 
 import sys
 import json
-import psutil
 import platform
 from datetime import datetime
 import xml.etree.ElementTree as ET
+
+import psutil # pylint: disable=import-error
+
 
 def basic_metrics():
     """
@@ -46,10 +48,12 @@ def parse_event_xml(xml):
         event_log[tag] = event_xml.find('_:System/_:%s' % tag, xmlns).text
 
     # other properties
-    event_log['TimeCreated'] = event_xml.find('_:System/_:TimeCreated', xmlns).attrib['SystemTime'][:-4]
+    event_log['TimeCreated'] = event_xml.find(
+        '_:System/_:TimeCreated', xmlns).attrib['SystemTime'][:-4]
 
     try:
-        event_log['Correlation'] = event_xml.find('_:System/_:Correlation', xmlns).attrib['ActivityID']
+        event_log['Correlation'] = event_xml.find(
+            '_:System/_:Correlation', xmlns).attrib['ActivityID']
     except KeyError:
         event_log['Correlation'] = None
 
@@ -60,7 +64,8 @@ def parse_event_xml(xml):
     for data in event_xml.findall('_:EventData/_:Data', xmlns):
         event_data[data.attrib['Name']] = data.text
     if 'PrivilegeList' in event_data:
-        event_data['PrivilegeList'] = event_data['PrivilegeList'].replace('\t', '').replace('\r', '').split('\n')
+        event_data['PrivilegeList'] = event_data['PrivilegeList'].replace(
+            '\t', '').replace('\r', '').split('\n')
     event_log['EventData'] = json.dumps(event_data)
 
     return event_log
@@ -80,8 +85,8 @@ def trim_down_events(events, batch_size):
 
     # take only @batch_size number of events and append them to the metrics
     results = []
-    for id in event_record_ids[:batch_size]:
-        results.append(events[id])
+    for _id in event_record_ids[:batch_size]:
+        results.append(events[_id])
 
     return results
 
@@ -92,10 +97,12 @@ def windows_event_logs(last_event_record_id, batch_size=1000):
         returns a list of events represented as
         dictionaries!
     """
-    from winevt import EventLog
+    from winevt import EventLog # pylint: disable=import-error
 
     events = {}
-    for event in EventLog.Query('Security', "Event/System[EventRecordID>%d]" % last_event_record_id):
+    for event in EventLog.Query(
+            'Security',
+            "Event/System[EventRecordID>%d]" % last_event_record_id):
         event_log = parse_event_xml(event.xml)
         events[event_log['EventRecordID']] = event_log
         # NOTE: I don't know if Windows will return the events in a sorted order
@@ -106,8 +113,7 @@ def windows_event_logs(last_event_record_id, batch_size=1000):
     return trim_down_events(events, batch_size)
 
 
-
-def main(argv=sys.argv):
+def main(argv=sys.argv): # pylint: disable=dangerous-default-value
     """
         Collect all metrics and return them as
         a JSON dump.

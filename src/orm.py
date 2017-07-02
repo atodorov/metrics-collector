@@ -1,5 +1,4 @@
 import sqlalchemy as sql
-from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 
 _Base = declarative_base()
